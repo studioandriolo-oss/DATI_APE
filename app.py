@@ -136,12 +136,14 @@ with st.form("ape_form"):
         n_termostati = st.text_input("N. Termostati")
 
   # ALTRI IMPIANTI
-  st.subheader("Altri impianti")
+    st.subheader("Altri impianti")
     cc1, cc2, cc3, cc4 = st.columns(4)
+    
     with c1:
         st.markdown("**Impianto Fotovoltaico**")
         fotovoltaico = st.text_input("Potenza impianto foltovoltaico")
         esposizione = st.selectbox("Esposizione", ["Sud", "Est", "Ovest", "Non lo so"])
+   
     with c2:
         st.markdown("**Eventuale Stufa**")
         stufa_tipo = st.selectbox("Tipo Stufa", ["Nessuna", "Legna", "Pellet"])

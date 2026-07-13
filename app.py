@@ -107,7 +107,7 @@ with st.form("ape_form"):
         st.markdown("**Codice Impianto**")
         codice_circe = st.text_input("Codice CIRCE")
     with cc2:
-        st.markdown("****")
+        st.markdown("")
         chiave_circe = st.text_input("Chiave")
 
     with cc3:

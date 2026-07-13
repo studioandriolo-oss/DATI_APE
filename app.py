@@ -63,7 +63,7 @@ with st.form("ape_form"):
     c1, c2, c3, c4 = st.columns(4)
     with c1:
         conf_sopra = st.selectbox("Sopra", ["Abitazione", "Sottotetto", "Cielo", "Altro", "Non specificato"])
-     with c2:
+    with c2:
         conf_sotto = st.selectbox("Sotto", ["Abitazione", "Garage", "Terreno", "Altro", "Non specificato"])
                                  
     st.markdown("---")

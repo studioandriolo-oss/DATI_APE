@@ -118,33 +118,33 @@ with st.form("ape_form"):
 
     # IMPIANTO
     st.subheader("Impianto")
-    c1, c2, c3, c4 = st.columns(4)
+    cc1, cc2, cc3, = st.columns(3)
     
-    with c1:
+    with cc1:
         caldaia_tipo = st.selectbox("Caldaia", ["Standard", "A condensazione", "Non lo so", "Non presente"])
         caldaia_marca = st.text_input("Marca Caldaia")
         caldaia_modello = st.text_input("Modello Caldaia")
-        caldaia_anno = st.text_input("Anno Caldaia")
         
-    with c2:
+    with cc2:
         alim_caldaia = st.selectbox("Alimentazione", ["Metano", "GPL", "Gasolio", "Altro", "Non specificato"])
         ubicazione_caldaia = st.selectbox("Ubicazione", ["Interno", "Esterno", "Centrale Termica"])
         terminali = st.selectbox("Terminali", ["Radiatori acciaio", "Radiatori ghisa", "Radiatori alluminio", "A pavimento", "A soffitto", "Altro"])
         
-    with c3:
+    with cc3:
         sistema_tipo = st.multiselect("Tipo Sistema (Caldaia)", ["Risc.", "ACS"])
         n_termostati = st.text_input("N. Termostati")
+        caldaia_anno = st.text_input("Anno Caldaia")
 
   # ALTRI IMPIANTI
     st.subheader("Altri impianti")
     cc1, cc2, cc3, cc4 = st.columns(4)
     
-    with c1:
+    with cc1:
         st.markdown("**Impianto Fotovoltaico**")
         fotovoltaico = st.text_input("Potenza impianto foltovoltaico")
         esposizione = st.selectbox("Esposizione", ["Sud", "Est", "Ovest", "Non lo so"])
    
-    with c2:
+    with cc2:
         st.markdown("**Eventuale Stufa**")
         stufa_tipo = st.selectbox("Tipo Stufa", ["Nessuna", "Legna", "Pellet"])
         stufa_marca = st.text_input("Marca / Modello Stufa")

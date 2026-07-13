@@ -139,7 +139,7 @@ with st.form("ape_form"):
     st.subheader("ALTRI IMPIANTI")
     cc1, cc2, cc3, cc4 = st.columns(4)
     with cc1:
-         st.markdown("**Impianto Fotovoltaico**")
+        st.markdown("**Impianto Fotovoltaico**")
         fotovoltaico = st.text_input("Potenza impianto foltovoltaico")
         esposizione = st.selectbox("Esposizione", ["Sud", "Est", "Ovest", "Non lo so"])
     with c2:

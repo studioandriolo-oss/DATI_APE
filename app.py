@@ -5,6 +5,56 @@ import mimetypes
 from email.message import EmailMessage
 
 # ==========================================
+# 1. SISTEMA DI LOGIN MULTI-UTENTE
+# ==========================================
+if "agente_loggato" not in st.session_state:
+    st.session_state.agente_loggato = None
+
+if not st.session_state.agente_loggato:
+    st.title("🔒 Accesso Riservato")
+    st.markdown("Inserisci le tue credenziali per accedere al modulo APE.")
+    
+    # Campi di input
+    id_inserito = st.text_input("ID Agente")
+    pwd_inserita = st.text_input("Password", type="password")
+    
+    if st.button("Accedi", type="primary"):
+        # Controlliamo se l'ID esiste nei secrets e se la password combacia
+        agenti = st.secrets["agenti"]
+        if id_inserito in agenti and agenti[id_inserito] == pwd_inserita:
+            # Salviamo il nome in memoria
+            st.session_state.agente_loggato = id_inserito
+            st.rerun() # Ricarica sbloccando la pagina
+        else:
+            st.error("Credenziali errate. Riprova.")
+            
+    st.stop() # Blocca l'esecuzione del resto del codice se non sei loggato
+
+# ==========================================
+# 2. SE L'ACCESSO E' ESEGUITO, MOSTRA LA PAGINA
+# ==========================================
+st.set_page_config(page_title="Acquisizione Dati APE", layout="wide")
+
+col_titolo, col_agente = st.columns([3, 1])
+
+with col_titolo:
+    st.title("Acquisizione Dati per APE")
+    st.markdown("Modulo di raccolta dati per redazione Attestato di Prestazione Energetica.")
+
+with col_agente:
+    st.markdown("<br>", unsafe_allow_html=True)
+    # Mostriamo il nome in sola lettura
+    st.info(f"👤 Agente: **{st.session_state.agente_loggato}**")
+    
+    # Tasto di logout
+    if st.button("Esci / Logout", use_container_width=True):
+        st.session_state.agente_loggato = None
+        st.rerun() # Riavvia l'app e riporta alla schermata di login
+    
+    # Assegniamo la variabile per il riepilogo
+    nome_agente = st.session_state.agente_loggato
+
+# ==========================================
 # FUNZIONE INVIO EMAIL
 # ==========================================
 def invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto):

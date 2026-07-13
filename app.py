@@ -1,4 +1,39 @@
 import streamlit as st
+import smtplib
+import ssl
+import mimetypes
+from email.message import EmailMessage
+def invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto):
+    msg = EmailMessage()
+    msg.set_content(riepilogo)
+    msg['Subject'] = f"Nuovi dati APE da: {nome_agente}"
+    msg['From'] = st.secrets["email"]["mittente"]
+    msg['To'] = st.secrets["email"]["destinatario"]
+
+    # Combiniamo tutti i file caricati (scartando quelli vuoti)
+    tutti_i_file = [f for f in file_singoli if f is not None]
+    if file_foto:
+        tutti_i_file.extend(file_foto)
+
+    # Alleghiamo i file all'email
+    for f in tutti_i_file:
+        file_data = f.read()
+        file_name = f.name
+        
+        # Capiamo se è un PDF, JPG, PNG, ecc.
+        mime_type, _ = mimetypes.guess_type(file_name)
+        if mime_type is None:
+            mime_type = 'application/octet-stream'
+        maintype, subtype = mime_type.split('/', 1)
+        
+        msg.add_attachment(file_data, maintype=maintype, subtype=subtype, filename=file_name)
+        f.seek(0) # Riporta il file all'inizio nel caso servisse ancora a Streamlit
+
+    # Connessione sicura a Gmail e invio
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(st.secrets["email"]["mittente"], st.secrets["email"]["password"])
+        server.send_message(msg)
 
 # Configurazione della pagina
 st.set_page_config(page_title="Acquisizione Dati APE", layout="wide")
@@ -203,7 +238,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 col_btn1, col_btn2, col_vuota = st.columns([2, 2, 6])
 
 with col_btn1:
-    submitted = st.button("Genera Riepilogo per Copia-Incolla")
+    submitted = st.button("Genera Riepilogo")
 with col_btn2:
     inviato = st.button("Invia al professionista", type="primary")
 
@@ -257,6 +292,15 @@ if submitted or inviato:
         st.code(riepilogo, language="markdown")
         
     if inviato:
-        st.success("🚀 Dati inviati con successo allo studio!")
-        st.info("UI pronta. Per far sì che l'email ti arrivi fisicamente con i PDF e le foto allegate in automatico, servirà integrare la libreria `smtplib` e nascondere le credenziali della tua email nei 'Secrets' di Streamlit.")
-        st.code(riepilogo, language="markdown")
+        with st.spinner("Compilazione email e caricamento allegati in corso..."):
+            try:
+                # Raggruppo i file singoli in una lista
+                file_singoli = [file_visura, file_planimetria, file_doc_identita, file_libretti]
+                
+                # Lancio la funzione
+                invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto)
+                
+                st.success("🚀 Dati e allegati inviati con successo allo studio!")
+            except Exception as e:
+                st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")
+                st.info("Assicurati di aver configurato correttamente i Secrets di Streamlit.")

@@ -136,7 +136,7 @@ with st.form("ape_form"):
         n_termostati = st.text_input("N. Termostati")
 
   # ALTRI IMPIANTI
-    st.subheader("Altri impianti")
+  st.subheader("Altri impianti")
     cc1, cc2, cc3, cc4 = st.columns(4)
     with c1:
         st.markdown("**Impianto Fotovoltaico**")

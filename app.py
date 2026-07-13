@@ -108,8 +108,6 @@ with st.form("ape_form"):
     with cc2:
         chiave_circe = st.text_input("Chiave")
 
-    st.markdown("---")
-
     # MANUTENOIRE
     st.subheader("Manutentore")
     cc1, cc2, cc3, cc4 = st.columns(4)
@@ -118,6 +116,8 @@ with st.form("ape_form"):
     with cc2:
         contatto_manut = st.text_input("Contatto Manutentore")
 
+    # IMPIANTO
+    st.subheader("Impianto")
     c1, c2, c3, c4 = st.columns(4)
     
     with c1:
@@ -136,9 +136,9 @@ with st.form("ape_form"):
         n_termostati = st.text_input("N. Termostati")
 
   # ALTRI IMPIANTI
-    st.subheader("ALTRI IMPIANTI")
+    st.subheader("Altri impianti")
     cc1, cc2, cc3, cc4 = st.columns(4)
-    with cc1:
+    with c1:
         st.markdown("**Impianto Fotovoltaico**")
         fotovoltaico = st.text_input("Potenza impianto foltovoltaico")
         esposizione = st.selectbox("Esposizione", ["Sud", "Est", "Ovest", "Non lo so"])

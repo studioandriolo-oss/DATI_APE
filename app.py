@@ -57,7 +57,7 @@ with col_agente:
 # ==========================================
 # FUNZIONE INVIO EMAIL
 # ==========================================
-def invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto):
+def invia_email_studio(riepilogo, nome_agente, nome_proprietario, file_singoli, file_foto):
     email_studio = "studioandriolo@gmail.com"
     password_studio = st.secrets["mail_password"]
     

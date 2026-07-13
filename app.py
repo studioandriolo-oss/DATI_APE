@@ -3,12 +3,19 @@ import smtplib
 import ssl
 import mimetypes
 from email.message import EmailMessage
+
+# ==========================================
+# FUNZIONE INVIO EMAIL
+# ==========================================
 def invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto):
+    email_studio = "studioandriolo@gmail.com"
+    password_studio = st.secrets["mail_password"]
+    
     msg = EmailMessage()
     msg.set_content(riepilogo)
     msg['Subject'] = f"Nuovi dati APE da: {nome_agente}"
-    msg['From'] = st.secrets["email"]["mittente"]
-    msg['To'] = st.secrets["email"]["destinatario"]
+    msg['From'] = email_studio
+    msg['To'] = email_studio
 
     # Combiniamo tutti i file caricati (scartando quelli vuoti)
     tutti_i_file = [f for f in file_singoli if f is not None]
@@ -20,25 +27,24 @@ def invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto):
         file_data = f.read()
         file_name = f.name
         
-        # Capiamo se è un PDF, JPG, PNG, ecc.
         mime_type, _ = mimetypes.guess_type(file_name)
         if mime_type is None:
             mime_type = 'application/octet-stream'
         maintype, subtype = mime_type.split('/', 1)
         
         msg.add_attachment(file_data, maintype=maintype, subtype=subtype, filename=file_name)
-        f.seek(0) # Riporta il file all'inizio nel caso servisse ancora a Streamlit
+        f.seek(0)
 
-    # Connessione sicura a Gmail e invio
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-        server.login(st.secrets["email"]["mittente"], st.secrets["email"]["password"])
+        server.login(email_studio, password_studio)
         server.send_message(msg)
 
-# Configurazione della pagina
+# ==========================================
+# CONFIGURAZIONE PAGINA E INTESTAZIONE
+# ==========================================
 st.set_page_config(page_title="Acquisizione Dati APE", layout="wide")
 
-# Creiamo due colonne: una grande per il titolo, una più piccola per l'agente
 col_titolo, col_agente = st.columns([3, 1])
 
 with col_titolo:
@@ -107,6 +113,12 @@ with c1:
     conf_sopra = st.selectbox("Sopra", ["Abitazione", "Sottotetto", "Cielo", "Altro", "Non specificato"])
 with c2:
     conf_sotto = st.selectbox("Sotto", ["Abitazione", "Garage", "Terreno", "Altro", "Non specificato"])
+with c3:
+    conf_nord = st.text_input("A fianco Nord")
+    conf_sud = st.text_input("A fianco Sud")
+with c4:
+    conf_est = st.text_input("A fianco Est")
+    conf_ovest = st.text_input("A fianco Ovest")
 
 st.markdown("---")
 
@@ -182,11 +194,9 @@ with t1:
 with t2:
     mostra_stufa = st.toggle("Stufa a legna/pellet presente")
 
-# Inizializzo le variabili vuote per evitare errori nel testo finale
 fotovoltaico, esposizione = "", ""
 stufa_tipo, stufa_marca, stufa_anno, stufa_sistema = "Nessuna", "", "", []
 
-# Mostra i campi dinamicamente
 if mostra_fotovoltaico or mostra_stufa:
     cc1, cc2, cc3 = st.columns(3)
     
@@ -228,25 +238,18 @@ with c2:
 with c3:
     file_foto = st.file_uploader("Carica Fotografie (Dall'esterno, Serramenti, Caldaia, Termostato, Radiatori)", accept_multiple_files=True)
 
-# Pulsante di salvataggio (ora è un bottone normale, non form_submit)
-submitted = st.button("Genera Riepilogo")
-
 # ==========================================
-# PULSANTI DI AZIONE
+# PULSANTI DI AZIONE E RIEPILOGO
 # ==========================================
 st.markdown("<br>", unsafe_allow_html=True)
 col_btn1, col_btn2, col_vuota = st.columns([2, 2, 6])
 
 with col_btn1:
-    submitted = st.button("Genera Riepilogo")
+    submitted = st.button("Genera Riepilogo per Copia-Incolla")
 with col_btn2:
     inviato = st.button("Invia al professionista", type="primary")
 
-# ==========================================
-# GENERAZIONE RIEPILOGO O INVIO
-# ==========================================
 if submitted or inviato:
-    # Costruisco le stringhe extra se i toggle erano attivi
     txt_foto = f"- Fotovoltaico: {fotovoltaico} (Esposizione: {esposizione})" if mostra_fotovoltaico else "- Fotovoltaico: Non presente"
     txt_stufa = f"- Stufa: {stufa_tipo} {stufa_marca} (Anno {stufa_anno}) - Sistema: {', '.join(stufa_sistema)}" if mostra_stufa else "- Stufa: Non presente"
     
@@ -294,13 +297,9 @@ if submitted or inviato:
     if inviato:
         with st.spinner("Compilazione email e caricamento allegati in corso..."):
             try:
-                # Raggruppo i file singoli in una lista
                 file_singoli = [file_visura, file_planimetria, file_doc_identita, file_libretti]
-                
-                # Lancio la funzione
                 invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto)
-                
-                st.success("🚀 Dati e allegati inviati con successo allo studio!")
+                st.success("🚀 Dati e allegati inviati con successo a studioandriolo@gmail.com!")
             except Exception as e:
                 st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")
-                st.info("Assicurati di aver configurato correttamente i Secrets di Streamlit.")
+                st.info("Assicurati di aver inserito `mail_password` nei Secrets di Streamlit.")

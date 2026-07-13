@@ -3,9 +3,17 @@ import streamlit as st
 # Configurazione della pagina (Layout largo per ospitare 4 colonne)
 st.set_page_config(page_title="Acquisizione Dati APE", layout="wide")
 
-st.title("Acquisizione Dati per APE")
-st.markdown("Modulo di raccolta dati per redazione Attestato di Prestazione Energetica.")
+# titolo e agente
+col_titolo, col_agente = st.columns([3, 1])
 
+with col_titolo:
+    st.title("Acquisizione Dati per APE")
+    st.markdown("Modulo di raccolta dati per redazione Attestato di Prestazione Energetica.")
+
+with col_agente:
+    # Aggiungiamo uno spaziatore per allineare bene il box al titolo
+    st.markdown("<br>", unsafe_allow_html=True)
+    nome_agente = st.text_input("Nome Agente")
 with st.form("ape_form"):
     # ==========================================
     # 1. DATI GENERALI E PROPRIETARIO
@@ -168,7 +176,7 @@ with st.form("ape_form"):
         file_foto = st.file_uploader("Carica Fotografie (Dall'esterno, Serramenti, Caldaia, Termostato, Radiatori)", accept_multiple_files=True)
 
     # Pulsante di salvataggio
-    submitted = st.form_submit_button("Genera Riepilogo per Copia-Incolla")
+    submitted = st.form_submit_button("Genera Riepilogo")
 
 # ==========================================
 # GENERAZIONE RIEPILOGO (DOPO IL SUBMIT)

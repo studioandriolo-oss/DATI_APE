@@ -21,6 +21,7 @@ with st.form("ape_form"):
     with c2:
         nome_prop = st.text_input("Nome Proprietario")
         cognome_prop = st.text_input("Cognome Proprietario")
+        cf_prop = st.text_input("Codice Fiscale")
         
     with c3:
         residenza_prop = st.text_input("Residenza (Comune)")
@@ -28,7 +29,7 @@ with st.form("ape_form"):
         
     with c4:
         via_prop = st.text_input("Via/Piazza (Proprietario)")
-        num_prop = st.text_input("N. (Proprietario)")
+        num_prop = st.text_input("civico")
 
     st.markdown("---")
 
@@ -41,7 +42,8 @@ with st.form("ape_form"):
     with c1:
         comune_imm = st.text_input("Comune Immobile")
         via_imm = st.text_input("Via/Piazza Immobile")
-        num_imm = st.text_input("N. Immobile")
+        num_imm = st.text_input("Civico Immobile")
+        valore_imm = st.text_input("Valore (k€) - solo a fini statistici")
     
     with c2:
         foglio = st.text_input("Foglio")
@@ -51,7 +53,6 @@ with st.form("ape_form"):
     with c3:
         anno_costr = st.text_input("Anno Costruzione")
         anno_imp = st.text_input("Anno Impianti")
-        valore_imm = st.text_input("Valore (k€)")
         
     with c4:
         n_unita = st.text_input("N. Unità edificio")
@@ -62,14 +63,7 @@ with st.form("ape_form"):
     c1, c2, c3, c4 = st.columns(4)
     with c1:
         conf_sopra = st.selectbox("Sopra", ["Abitazione", "Sottotetto", "Cielo", "Altro", "Non specificato"])
-        conf_sotto = st.selectbox("Sotto", ["Abitazione", "Garage", "Terreno", "Altro", "Non specificato"])
-    with c2:
-        conf_nord = st.text_input("A fianco Nord")
-    with c3:
-        conf_sud = st.text_input("A fianco Sud")
-        conf_est = st.text_input("A fianco Est")
-    with c4:
-        conf_ovest = st.text_input("A fianco Ovest")
+        conf_sotto = st.selectbox("Sotto", ["Abitazione", "Garage", "Terreno", "Altro", "Non specificato"]
 
     st.markdown("---")
 
@@ -88,7 +82,7 @@ with st.form("ape_form"):
     with c2:
         serramento = st.selectbox("Serramento", ["Singolo", "Doppio", "Triplo", "Non specificato"])
         telaio = st.selectbox("Telaio", ["Legno", "PVC", "Metallo", "Taglio termico", "Non specificato"])
-        vetro = st.selectbox("Vetro (Tipologia)", ["Singolo", "Doppio", "Triplo", "Basso emissivo", "Non specificato"])
+        vetro = st.selectbox("Vetro (Tipologia)", ["Singolo", "Doppio", "Triplo", "Non specificato"])
         
     with c3:
         oscuramento = st.selectbox("Oscuramento", ["Tapparelle", "Balconi/Scuri", "Tende oscuranti", "Lamelle orientabili", "Nessuno"])
@@ -104,10 +98,20 @@ with st.form("ape_form"):
     # 4. IMPIANTI E CENTRALI TERMICHE
     # ==========================================
     st.header("4. Impianti (Centrali Termiche / Stufe)")
+    
+     # Codice CIRCE e Chiave su una sola riga
+    st.subheader("Registrazione Impianto")
+    cc1, cc2, cc3, cc4 = st.columns(4)
+    with cc1:
+        codice_circe = st.text_input("Codice CIRCE")
+    with cc2:
+        chiave_circe = st.text_input("Chiave")
+
+    st.markdown("---")
     c1, c2, c3, c4 = st.columns(4)
     
     with c1:
-        caldaia_tipo = st.selectbox("Caldaia", ["Standard", "A condensazione", "Non presente"])
+        caldaia_tipo = st.selectbox("Caldaia", ["Standard", "A condensazione", "Non lo so", "Non presente"])
         caldaia_marca = st.text_input("Marca Caldaia")
         caldaia_modello = st.text_input("Modello Caldaia")
         caldaia_anno = st.text_input("Anno Caldaia")
@@ -129,16 +133,6 @@ with st.form("ape_form"):
         stufa_marca = st.text_input("Marca / Modello Stufa")
         stufa_anno = st.text_input("Anno Stufa")
         stufa_sistema = st.multiselect("Tipo Sistema (Stufa)", ["Risc.", "ACS"])
-
-    # Codice CIRCE e Chiave su una sola riga
-    st.subheader("Registrazione Impianto")
-    cc1, cc2, cc3, cc4 = st.columns(4)
-    with cc1:
-        codice_circe = st.text_input("Codice CIRCE")
-    with cc2:
-        chiave_circe = st.text_input("Chiave")
-
-    st.markdown("---")
 
     # ==========================================
     # 5. NOTE E UPLOAD DOCUMENTI

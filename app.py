@@ -91,21 +91,6 @@ def invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto):
         server.send_message(msg)
 
 # ==========================================
-# CONFIGURAZIONE PAGINA E INTESTAZIONE
-# ==========================================
-st.set_page_config(page_title="Acquisizione Dati APE", layout="wide")
-
-col_titolo, col_agente = st.columns([3, 1])
-
-with col_titolo:
-    st.title("Acquisizione Dati per APE")
-    st.markdown("Modulo di raccolta dati per redazione Attestato di Prestazione Energetica.")
-
-with col_agente:
-    st.markdown("<br>", unsafe_allow_html=True)
-    nome_agente = st.text_input("Nome Agente / Compilatore")
-
-# ==========================================
 # 1. DATI GENERALI E PROPRIETARIO
 # ==========================================
 st.header("1. Dati Generali e Proprietario")

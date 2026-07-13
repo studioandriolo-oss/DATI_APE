@@ -16,8 +16,13 @@ def genera_pdf(testo):
     # Puliamo eventuali caratteri markdown se presenti
     testo_pulito = testo.replace("**", "")
     
+    # Alcuni caratteri speciali (come l'Euro) possono dare fastidio al font base di FPDF
+    testo_pulito = testo_pulito.replace("€", "EUR")
+    
     pdf.multi_cell(0, 6, text=testo_pulito)
-    return pdf.output()
+    
+    # LA FIX È QUI: convertiamo esplicitamente l'output in 'bytes' per Streamlit
+    return bytes(pdf.output())
 
 # ==========================================
 # 1. SISTEMA DI LOGIN MULTI-UTENTE

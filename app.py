@@ -297,7 +297,7 @@ txt_stufa = f"- Stufa: {stufa_tipo} {stufa_marca} (Anno {stufa_anno}) - Sistema:
 riepilogo = f"""
 1. DATI GENERALI E PROPRIETARIO
 - Agente incaricato: {nome_agente}
-- Data sopralluogo: {data_sopralluogo.strftime('%d/%m/%Y')}
+- Data sopralluogo: {data_sopralluogo}
 - Motivazione: {motivazione} | Destinazione Uso: {destinazione_uso}
 - Proprietario: {nome_prop} {cognome_prop} (CF: {cf_prop})
 - Nato a: {luogo_nascita} | Il: {data_nascita}
@@ -308,7 +308,7 @@ riepilogo = f"""
 - Dati Catastali: Foglio {foglio}, Mappale {mappale}, Sub {sub}
 - Anni / Valore: Costruzione {anno_costr}, Impianti {anno_imp}, Valore {valore_imm}
 - Geometria: N. Unità {n_unita}, Piano ingresso {piano_ingr}, N. Piani {n_piani}
-- Confinanti: Sopra: {conf_sopra} | Sotto: {conf_sotto} | Nord: {conf_nord} | Sud: {conf_sud} | Est: {conf_est} | Ovest: {conf_ovest}
+- Confinanti: Sopra: {conf_sopra} | Sotto: {conf_sotto}
 
 3. STRUTTURE E INVOLUCRO
 - Muratura EXT: {muro_ext} (Spessore: {spessore_muro} cm)

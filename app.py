@@ -109,6 +109,15 @@ with st.form("ape_form"):
         chiave_circe = st.text_input("Chiave")
 
     st.markdown("---")
+
+    # MANUTENOIRE
+    st.subheader("Manutentore")
+    cc1, cc2, cc3, cc4 = st.columns(4)
+    with cc1:
+        manutentore = st.text_input("Manutentore")
+    with cc2:
+        contatto_manut = st.text_input("Contatto Manutentore")
+
     c1, c2, c3, c4 = st.columns(4)
     
     with c1:
@@ -125,10 +134,15 @@ with st.form("ape_form"):
     with c3:
         sistema_tipo = st.multiselect("Tipo Sistema (Caldaia)", ["Risc.", "ACS"])
         n_termostati = st.text_input("N. Termostati")
-        manutentore = st.text_input("Manutentore")
-        contatto_manut = st.text_input("Contatto Manutentore")
 
-    with c4:
+  # ALTRI IMPIANTI
+    st.subheader("ALTRI IMPIANTI")
+    cc1, cc2, cc3, cc4 = st.columns(4)
+    with cc1:
+         st.markdown("**Impianto Fotovoltaico**")
+        fotovoltaico = st.text_input("Potenza impianto foltovoltaico")
+        esposizione = st.selectbox("Esposizione", ["Sud", "Est", "Ovest", "Non lo so"])
+    with c2:
         st.markdown("**Eventuale Stufa**")
         stufa_tipo = st.selectbox("Tipo Stufa", ["Nessuna", "Legna", "Pellet"])
         stufa_marca = st.text_input("Marca / Modello Stufa")

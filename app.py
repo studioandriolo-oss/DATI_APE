@@ -63,7 +63,7 @@ def invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto):
     
     msg = EmailMessage()
     msg.set_content(riepilogo)
-    msg['Subject'] = f"Nuovi dati APE da: {nome_agente}"
+    msg['Subject'] = f"APE {nome_agente} | {nome_proprietario}"
     msg['From'] = email_studio
     msg['To'] = email_studio
 
@@ -97,7 +97,7 @@ st.header("1. Dati Generali e Proprietario")
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    data_sopralluogo = st.date_input("Data sopralluogo")
+    data_sopralluogo = st.text_input("Data sopralluogo")
     motivazione = st.selectbox("Motivazione", ["Vendita", "Affitto", "Altro"])
     destinazione_uso = st.text_input("Destinazione Uso")
 
@@ -107,10 +107,12 @@ with c2:
     cf_prop = st.text_input("Codice Fiscale")
     
 with c3:
+    data_nascita = st.text_input("Data di nascita (gg/mm/aaaa)")
+    luogo_nascita = st.text_input("Luogo di nascita")
+        
+with c4:
     residenza_prop = st.text_input("Residenza (Comune)")
     cap_prop = st.text_input("CAP")
-    
-with c4:
     via_prop = st.text_input("Via/Piazza (Proprietario)")
     num_prop = st.text_input("Civico (Proprietario)")
 
@@ -285,9 +287,10 @@ if submitted or inviato:
     riepilogo = f"""
 ### 1. DATI GENERALI E PROPRIETARIO
 - Agente incaricato: {nome_agente}
-- Data: {data_sopralluogo}
+- Data: {data_sopralluogo.strftime('%d/%m/%Y')}
 - Motivazione: {motivazione} | Destinazione Uso: {destinazione_uso}
 - Proprietario: {nome_prop} {cognome_prop} (CF: {cf_prop})
+- Nato a: {luogo_nascita} | Il: {data_nascita}
 - Residenza: {via_prop} {num_prop}, {cap_prop} {residenza_prop}
 
 ### 2. IMMOBILE E CONFINANTI
@@ -326,8 +329,14 @@ if submitted or inviato:
     if inviato:
         with st.spinner("Compilazione email e caricamento allegati in corso..."):
             try:
+                # Uniamo nome e cognome per l'oggetto della mail
+                nome_completo_prop = f"{nome_prop} {cognome_prop}".strip()
+                
                 file_singoli = [file_visura, file_planimetria, file_doc_identita, file_libretti]
-                invia_email_studio(riepilogo, nome_agente, file_singoli, file_foto)
+                
+                # Aggiungiamo nome_completo_prop alla funzione
+                invia_email_studio(riepilogo, nome_agente, nome_completo_prop, file_singoli, file_foto)
+                
                 st.success("🚀 Dati e allegati inviati con successo a studioandriolo@gmail.com!")
             except Exception as e:
                 st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")

@@ -3,6 +3,21 @@ import smtplib
 import ssl
 import mimetypes
 from email.message import EmailMessage
+from fpdf import FPDF # <-- NUOVO IMPORT
+
+# ==========================================
+# FUNZIONE CREAZIONE PDF
+# ==========================================
+def genera_pdf(testo):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("helvetica", size=11)
+    
+    # Puliamo eventuali caratteri markdown se presenti
+    testo_pulito = testo.replace("**", "")
+    
+    pdf.multi_cell(0, 6, text=testo_pulito)
+    return pdf.output()
 
 # ==========================================
 # 1. SISTEMA DI LOGIN MULTI-UTENTE
@@ -270,74 +285,81 @@ with c3:
     file_foto = st.file_uploader("Carica Fotografie (Dall'esterno, Serramenti, Caldaia, Termostato, Radiatori)", accept_multiple_files=True)
 
 # ==========================================
-# PULSANTI DI AZIONE E RIEPILOGO
+# PREPARAZIONE DATI (Riepilogo) E PULSANTI
 # ==========================================
-st.markdown("<br>", unsafe_allow_html=True)
-col_btn1, col_btn2, col_vuota = st.columns([2, 2, 6])
+st.markdown("", unsafe_allow_html=True)
 
-with col_btn1:
-    submitted = st.button("Genera Riepilogo")
-with col_btn2:
-    inviato = st.button("Invia al professionista", type="primary")
-
-if submitted or inviato:
-    txt_foto = f"- Fotovoltaico: {fotovoltaico} (Esposizione: {esposizione})" if mostra_fotovoltaico else "- Fotovoltaico: Non presente"
-    txt_stufa = f"- Stufa: {stufa_tipo} {stufa_marca} (Anno {stufa_anno}) - Sistema: {', '.join(stufa_sistema)}" if mostra_stufa else "- Stufa: Non presente"
+# 1. Compiliamo il testo in automatico per passarlo al PDF e alla mail
+txt_foto = f"- Fotovoltaico: {fotovoltaico} (Esposizione: {esposizione})" if mostra_fotovoltaico else "- Fotovoltaico: Non presente"
+txt_stufa = f"- Stufa: {stufa_tipo} {stufa_marca} (Anno {stufa_anno}) - Sistema: {', '.join(stufa_sistema)}" if mostra_stufa else "- Stufa: Non presente"
     
-    riepilogo = f"""
-### 1. DATI GENERALI E PROPRIETARIO
+# Ho rimosso gli '###' per far uscire il PDF più pulito e formattato come un vero modulo
+riepilogo = f"""
+1. DATI GENERALI E PROPRIETARIO
 - Agente incaricato: {nome_agente}
-- Data: {data_sopralluogo}
+- Data sopralluogo: {data_sopralluogo.strftime('%d/%m/%Y')}
 - Motivazione: {motivazione} | Destinazione Uso: {destinazione_uso}
 - Proprietario: {nome_prop} {cognome_prop} (CF: {cf_prop})
 - Nato a: {luogo_nascita} | Il: {data_nascita}
 - Residenza: {via_prop} {num_prop}, {cap_prop} {residenza_prop}
 
-### 2. IMMOBILE E CONFINANTI
+2. IMMOBILE E CONFINANTI
 - Ubicazione Immobile: {via_imm} {num_imm}, {comune_imm}
 - Dati Catastali: Foglio {foglio}, Mappale {mappale}, Sub {sub}
 - Anni / Valore: Costruzione {anno_costr}, Impianti {anno_imp}, Valore {valore_imm}
 - Geometria: N. Unità {n_unita}, Piano ingresso {piano_ingr}, N. Piani {n_piani}
-- Confinanti: Sopra: {conf_sopra} | Sotto: {conf_sotto}
+- Confinanti: Sopra: {conf_sopra} | Sotto: {conf_sotto} | Nord: {conf_nord} | Sud: {conf_sud} | Est: {conf_est} | Ovest: {conf_ovest}
 
-### 3. STRUTTURE E INVOLUCRO
+3. STRUTTURE E INVOLUCRO
 - Muratura EXT: {muro_ext} (Spessore: {spessore_muro} cm)
 - Solai: Sopra -> {solaio_sopra} | Sotto -> {solaio_sotto}
 - Serramenti: {serramento}, Telaio {telaio}, Vetro {vetro}
 - Oscuramento: {oscuramento} (Materiale: {mat_osc})
 - Dettagli: Nicchie sottofinestra: {nicchie} | Cassonetti: {cassonetti}
 
-### 4. IMPIANTI
+4. IMPIANTI
 - Codice CIRCE: {codice_circe} | Chiave: {chiave_circe}
 - Manutentore: {manutentore} | Contatto: {contatto_manut}
 - Caldaia: {caldaia_tipo} | Marca/Modello: {caldaia_marca} {caldaia_modello} | Anno: {caldaia_anno}
 - Impianto: {alim_caldaia} | Ubicazione: {ubicazione_caldaia} | Terminali: {terminali}
 - Gestione: Sistema {', '.join(sistema_tipo)}, N. Termostati: {n_termostati}
 
-### ALTRI IMPIANTI
+ALTRI IMPIANTI
 {txt_foto}
 {txt_stufa}
 
-### 5. NOTE
+5. NOTE
 {note}
-    """
+"""
+
+# 2. Mostriamo i pulsanti in linea
+col_btn1, col_btn2, col_vuota = st.columns([2, 2, 6])
+
+with col_btn1:
+    # Generiamo il PDF in background
+    pdf_bytes = genera_pdf(riepilogo)
     
-    if submitted:
-        st.success("Dati compilati con successo! Copia il blocco sottostante.")
-        st.code(riepilogo, language="markdown")
-        
-    if inviato:
-        with st.spinner("Compilazione email e caricamento allegati in corso..."):
-            try:
-                # Uniamo nome e cognome per l'oggetto della mail
-                nome_completo_prop = f"{nome_prop} {cognome_prop}".strip()
-                
-                file_singoli = [file_visura, file_planimetria, file_doc_identita, file_libretti]
-                
-                # Aggiungiamo nome_completo_prop alla funzione
-                invia_email_studio(riepilogo, nome_agente, nome_completo_prop, file_singoli, file_foto)
-                
-                st.success("🚀 Dati e allegati inviati con successo a studioandriolo@gmail.com!")
-            except Exception as e:
-                st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")
-                st.info("Assicurati di aver inserito `mail_password` nei Secrets di Streamlit.")
+    # Download button (scarica il file automaticamente senza mostrare il testo a schermo)
+    st.download_button(
+        label="📄 Scarica PDF Riepilogo",
+        data=pdf_bytes,
+        file_name=f"APE_{cognome_prop}_{nome_agente}.pdf",
+        mime="application/pdf"
+    )
+
+with col_btn2:
+    inviato = st.button("Invia al professionista", type="primary")
+
+# 3. Logica per l'invio mail
+if inviato:
+    with st.spinner("Compilazione email e caricamento allegati in corso..."):
+        try:
+            nome_completo_prop = f"{nome_prop} {cognome_prop}".strip()
+            file_singoli = [file_visura, file_planimetria, file_doc_identita, file_libretti]
+            
+            invia_email_studio(riepilogo, nome_agente, nome_completo_prop, file_singoli, file_foto)
+            
+            st.success("🚀 Dati e allegati inviati con successo allo studio!")
+        except Exception as e:
+            st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")
+            st.info("Assicurati di aver inserito `mail_password` nei Secrets di Streamlit.")

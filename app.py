@@ -104,16 +104,15 @@ with st.form("ape_form"):
     st.subheader("Registrazione Impianto")
     cc1, cc2, cc3, cc4 = st.columns(4)
     with cc1:
+        st.markdown("**Codice Impianto**")
         codice_circe = st.text_input("Codice CIRCE")
     with cc2:
         chiave_circe = st.text_input("Chiave")
 
-    # MANUTENOIRE
-    st.subheader("Manutentore")
-    cc1, cc2, cc3, cc4 = st.columns(4)
-    with cc1:
+    with cc3:
+        st.markdown("**Manutentore impianto**")
         manutentore = st.text_input("Manutentore")
-    with cc2:
+    with cc4:
         contatto_manut = st.text_input("Contatto Manutentore")
 
     # IMPIANTO
@@ -137,7 +136,7 @@ with st.form("ape_form"):
 
   # ALTRI IMPIANTI
     st.subheader("Altri impianti")
-    cc1, cc2, cc3, cc4 = st.columns(4)
+    cc1, cc2, cc3, = st.columns(3)
     
     with cc1:
         st.markdown("**Impianto Fotovoltaico**")
@@ -148,6 +147,8 @@ with st.form("ape_form"):
         st.markdown("**Eventuale Stufa**")
         stufa_tipo = st.selectbox("Tipo Stufa", ["Nessuna", "Legna", "Pellet"])
         stufa_marca = st.text_input("Marca / Modello Stufa")
+    
+    with cc3:
         stufa_anno = st.text_input("Anno Stufa")
         stufa_sistema = st.multiselect("Tipo Sistema (Stufa)", ["Risc.", "ACS"])
 

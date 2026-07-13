@@ -197,11 +197,20 @@ with c3:
 submitted = st.button("Genera Riepilogo")
 
 # ==========================================
-# GENERAZIONE RIEPILOGO (DOPO IL SUBMIT)
+# PULSANTI DI AZIONE
 # ==========================================
-if submitted:
-    st.success("Dati compilati con successo! Copia il blocco sottostante.")
-    
+st.markdown("<br>", unsafe_allow_html=True)
+col_btn1, col_btn2, col_vuota = st.columns([2, 2, 6])
+
+with col_btn1:
+    submitted = st.button("Genera Riepilogo per Copia-Incolla")
+with col_btn2:
+    inviato = st.button("Invia al professionista", type="primary")
+
+# ==========================================
+# GENERAZIONE RIEPILOGO O INVIO
+# ==========================================
+if submitted or inviato:
     # Costruisco le stringhe extra se i toggle erano attivi
     txt_foto = f"- Fotovoltaico: {fotovoltaico} (Esposizione: {esposizione})" if mostra_fotovoltaico else "- Fotovoltaico: Non presente"
     txt_stufa = f"- Stufa: {stufa_tipo} {stufa_marca} (Anno {stufa_anno}) - Sistema: {', '.join(stufa_sistema)}" if mostra_stufa else "- Stufa: Non presente"
@@ -219,7 +228,7 @@ if submitted:
 - Dati Catastali: Foglio {foglio}, Mappale {mappale}, Sub {sub}
 - Anni / Valore: Costruzione {anno_costr}, Impianti {anno_imp}, Valore {valore_imm}
 - Geometria: N. Unità {n_unita}, Piano ingresso {piano_ingr}, N. Piani {n_piani}
-- Confinanti: Sopra: {conf_sopra} | Sotto: {conf_sotto} 
+- Confinanti: Sopra: {conf_sopra} | Sotto: {conf_sotto} | Nord: {conf_nord} | Sud: {conf_sud} | Est: {conf_est} | Ovest: {conf_ovest}
 
 ### 3. STRUTTURE E INVOLUCRO
 - Muratura EXT: {muro_ext} (Spessore: {spessore_muro} cm)
@@ -243,4 +252,11 @@ if submitted:
 {note}
     """
     
-    st.code(riepilogo, language="markdown")
+    if submitted:
+        st.success("Dati compilati con successo! Copia il blocco sottostante.")
+        st.code(riepilogo, language="markdown")
+        
+    if inviato:
+        st.success("🚀 Dati inviati con successo allo studio!")
+        st.info("UI pronta. Per far sì che l'email ti arrivi fisicamente con i PDF e le foto allegate in automatico, servirà integrare la libreria `smtplib` e nascondere le credenziali della tua email nei 'Secrets' di Streamlit.")
+        st.code(riepilogo, language="markdown")

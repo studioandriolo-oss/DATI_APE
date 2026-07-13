@@ -113,12 +113,6 @@ with c1:
     conf_sopra = st.selectbox("Sopra", ["Abitazione", "Sottotetto", "Cielo", "Altro", "Non specificato"])
 with c2:
     conf_sotto = st.selectbox("Sotto", ["Abitazione", "Garage", "Terreno", "Altro", "Non specificato"])
-with c3:
-    conf_nord = st.text_input("A fianco Nord")
-    conf_sud = st.text_input("A fianco Sud")
-with c4:
-    conf_est = st.text_input("A fianco Est")
-    conf_ovest = st.text_input("A fianco Ovest")
 
 st.markdown("---")
 
@@ -245,7 +239,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 col_btn1, col_btn2, col_vuota = st.columns([2, 2, 6])
 
 with col_btn1:
-    submitted = st.button("Genera Riepilogo per Copia-Incolla")
+    submitted = st.button("Genera Riepilogo")
 with col_btn2:
     inviato = st.button("Invia al professionista", type="primary")
 
@@ -266,7 +260,7 @@ if submitted or inviato:
 - Dati Catastali: Foglio {foglio}, Mappale {mappale}, Sub {sub}
 - Anni / Valore: Costruzione {anno_costr}, Impianti {anno_imp}, Valore {valore_imm}
 - Geometria: N. Unità {n_unita}, Piano ingresso {piano_ingr}, N. Piani {n_piani}
-- Confinanti: Sopra: {conf_sopra} | Sotto: {conf_sotto} | Nord: {conf_nord} | Sud: {conf_sud} | Est: {conf_est} | Ovest: {conf_ovest}
+- Confinanti: Sopra: {conf_sopra} | Sotto: {conf_sotto}
 
 ### 3. STRUTTURE E INVOLUCRO
 - Muratura EXT: {muro_ext} (Spessore: {spessore_muro} cm)

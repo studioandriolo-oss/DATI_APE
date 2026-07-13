@@ -287,7 +287,7 @@ if submitted or inviato:
     riepilogo = f"""
 ### 1. DATI GENERALI E PROPRIETARIO
 - Agente incaricato: {nome_agente}
-- Data: {data_sopralluogo.strftime('%d/%m/%Y')}
+- Data: {data_sopralluogo}
 - Motivazione: {motivazione} | Destinazione Uso: {destinazione_uso}
 - Proprietario: {nome_prop} {cognome_prop} (CF: {cf_prop})
 - Nato a: {luogo_nascita} | Il: {data_nascita}

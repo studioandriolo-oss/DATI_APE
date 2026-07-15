@@ -355,6 +355,8 @@ with col_btn1:
 with col_btn2:
     inviato = st.button("Invia al professionista", type="primary")
 
+ st.markdown("Prezzo fisso 130 euro iva incluso per unità fino a 200mq.")
+
 # 3. Logica per l'invio mail
 if inviato:
     with st.spinner("Compilazione email e caricamento allegati in corso..."):

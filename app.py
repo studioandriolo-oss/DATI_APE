@@ -271,7 +271,7 @@ if mostra_fotovoltaico or mostra_stufa:
             stufa_anno = st.text_input("Anno Stufa")
             stufa_sistema = st.multiselect("Tipo Sistema (Stufa)", ["Risc.", "ACS"])
     
-    if mostra_PDC:
+if mostra_PDC:
             st.markdown("**Pompa di Calore/Climatizzatore**")
             PDC_riscaldamento = st.text_input("Potenza riscaldamento COP")
             PDC_raffrescamento = st.text_input("Potenza raffrescamento EER")

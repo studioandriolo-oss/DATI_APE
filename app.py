@@ -274,11 +274,11 @@ if mostra_fotovoltaico or mostra_stufa:
 if mostra_PDC:
     st.markdown("**Pompa di Calore/Climatizzatore**")
     cc1, cc2, cc3 = st.columns(3)
-        with cc1:            
+    with cc1:            
             PDC_riscaldamento = st.text_input("Potenza riscaldamento COP")
-        with cc2:
+    with cc2:
             PDC_raffrescamento = st.text_input("Potenza raffrescamento EER")
-        with cc3:
+    with cc3:
             PDC_elementi_radianti = st.selectbox("Elementi radianti", ["Split", "Consolle/Mobiletti ad aria", "Consolle/Mobiletti ad acqua", "Fancoil"])
             
 st.markdown("---")

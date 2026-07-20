@@ -272,9 +272,13 @@ if mostra_fotovoltaico or mostra_stufa:
             stufa_sistema = st.multiselect("Tipo Sistema (Stufa)", ["Risc.", "ACS"])
     
 if mostra_PDC:
-            st.markdown("**Pompa di Calore/Climatizzatore**")
+    st.markdown("**Pompa di Calore/Climatizzatore**")
+    cc1, cc2, cc3 = st.columns(3)
+        with cc1:            
             PDC_riscaldamento = st.text_input("Potenza riscaldamento COP")
+        with cc2:
             PDC_raffrescamento = st.text_input("Potenza raffrescamento EER")
+        with cc3:
             PDC_elementi_radianti = st.selectbox("Elementi radianti", ["Split", "Consolle/Mobiletti ad aria", "Consolle/Mobiletti ad acqua", "Fancoil"])
             
 st.markdown("---")
@@ -305,6 +309,7 @@ st.markdown("", unsafe_allow_html=True)
 # 1. Compiliamo il testo in automatico per passarlo al PDF e alla mail
 txt_foto = f"- Fotovoltaico: {fotovoltaico} (Esposizione: {esposizione})" if mostra_fotovoltaico else "- Fotovoltaico: Non presente"
 txt_stufa = f"- Stufa: {stufa_tipo} {stufa_marca} (Anno {stufa_anno}) - Sistema: {', '.join(stufa_sistema)}" if mostra_stufa else "- Stufa: Non presente"
+txt_pompa_di_calore = f"- PDC: {PDC_riscaldamento} {PDC_raffrescamento} - (PDC_elementi_radianti: {PDC_elementi_radianti})" if mostra_PDC else "- PDC: Non presente"
     
 # Ho rimosso gli '###' per far uscire il PDF più pulito e formattato come un vero modulo
 riepilogo = f"""
@@ -340,6 +345,7 @@ riepilogo = f"""
 ALTRI IMPIANTI
 {txt_foto}
 {txt_stufa}
+{txt_pompa_di_calore}
 
 5. NOTE
 {note}

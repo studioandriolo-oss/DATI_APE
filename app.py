@@ -239,11 +239,13 @@ with cc3:
 # ==========================================
 st.subheader("Altri impianti (seleziona se presenti)")
 
-t1, t2 = st.columns(2)
+t1, t2, t3 = st.columns(3)
 with t1:
     mostra_fotovoltaico = st.toggle("Fotovoltaico presente")
 with t2:
     mostra_stufa = st.toggle("Stufa a legna/pellet presente")
+with t3:
+    mostra_PDC = st.toggle("Pompa di Calore/Climatizzatore presente")
 
 fotovoltaico, esposizione = "", ""
 stufa_tipo, stufa_marca, stufa_anno, stufa_sistema = "Nessuna", "", "", []
@@ -259,7 +261,7 @@ if mostra_fotovoltaico or mostra_stufa:
             
     with cc2:
         if mostra_stufa:
-            st.markdown("**Eventuale Stufa**")
+            st.markdown("**Stufa**")
             stufa_tipo = st.selectbox("Tipo Stufa", ["Nessuna", "Legna", "Pellet"])
             stufa_marca = st.text_input("Marca / Modello Stufa")
             
@@ -269,6 +271,12 @@ if mostra_fotovoltaico or mostra_stufa:
             stufa_anno = st.text_input("Anno Stufa")
             stufa_sistema = st.multiselect("Tipo Sistema (Stufa)", ["Risc.", "ACS"])
 
+ if mostra_PDC:
+            st.markdown("**Pompa di Calore/Climatizzatore**")
+            PDC_riscaldamento = st.text_input("Potenza riscaldamento COP")
+            PDC_raffrescamento = st.text_input("Potenza raffrescamento EER")
+            PDC_elementi_radianti = st.selectbox("Elementi radianti", ["Split", "Consolle/Mobiletti ad aria", "Consolle/Mobiletti ad acqua", "Fancoil"])
+            
 st.markdown("---")
 
 # ==========================================

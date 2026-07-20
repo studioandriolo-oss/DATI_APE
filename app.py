@@ -203,7 +203,7 @@ st.markdown("---")
 # ==========================================
 # 4. IMPIANTI E CENTRALI TERMICHE
 # ==========================================
-st.header("4. Impianti (Centrali Termiche / Stufe)")
+st.header("4. Impianti")
 
 st.subheader("Registrazione Impianto")
 cc1, cc2, cc3, cc4 = st.columns(4)
@@ -309,7 +309,7 @@ st.markdown("", unsafe_allow_html=True)
 # 1. Compiliamo il testo in automatico per passarlo al PDF e alla mail
 txt_foto = f"- Fotovoltaico: {fotovoltaico} (Esposizione: {esposizione})" if mostra_fotovoltaico else "- Fotovoltaico: Non presente"
 txt_stufa = f"- Stufa: {stufa_tipo} {stufa_marca} (Anno {stufa_anno}) - Sistema: {', '.join(stufa_sistema)}" if mostra_stufa else "- Stufa: Non presente"
-txt_pompa_di_calore = f"- PDC: {PDC_riscaldamento} {PDC_raffrescamento} - (PDC_elementi_radianti: {PDC_elementi_radianti})" if mostra_PDC else "- PDC: Non presente"
+txt_pompa_di_calore = f"- PDC: COP {PDC_riscaldamento} - EER {PDC_raffrescamento} - Elementi Radianti: {PDC_elementi_radianti}" if mostra_PDC else "- PDC: Non presente"
     
 # Ho rimosso gli '###' per far uscire il PDF più pulito e formattato come un vero modulo
 riepilogo = f"""

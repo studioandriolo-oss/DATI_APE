@@ -384,8 +384,6 @@ if inviato:
             st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")
             st.info("Assicurati di aver inserito `mail_password` nei Secrets di Streamlit.")
 
-st.markdown("---")
-    
 # ==========================================
 # PIANO COMMERCIALE E SCONTISTICA
 # ==========================================
@@ -413,5 +411,5 @@ c4.metric(label="Fino a 56 APE", value="55 €/cad", delta="-45% sul pacchetto",
 st.markdown("Per unità superiori a 200mq verrà comunicato preventivo specifico.")
 
 st.markdown("---")
-st.subheader("Se richiesto, fatturazione direttamente al cliente - prezzo fisso 150 euro iva inclusa!")
+st.markdown("Se richiesto, fatturazione direttamente al cliente - prezzo fisso 150 euro iva inclusa!")
 

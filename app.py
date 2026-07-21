@@ -387,8 +387,9 @@ if inviato:
 # ==========================================
 # PIANO COMMERCIALE E SCONTISTICA
 # ==========================================
-st.header("💰 Piano Commerciale per unità fino a 200 mq")
-st.markdown("Riservato agli agenti - Iva inclusa - Fatturazione annuale")
+st.header("Piano Commerciale per unità fino a 200 mq")
+st.subheader("💰 Riservato agli agenti")
+st.markdown(" Iva inclusa - Fatturazione annuale")
     
 with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"):
         st.markdown("""

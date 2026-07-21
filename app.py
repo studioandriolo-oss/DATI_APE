@@ -389,7 +389,6 @@ if inviato:
 # ==========================================
 st.header("💰 Piano Commerciale per unità fino a 200 mq")
 st.markdown("Riservato agli agenti - Iva inclusa - Fatturazione annuale")
-st.markdown("Premiamo i volumi di lavoro continui")
     
 with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"):
         st.markdown("""
@@ -411,5 +410,5 @@ c4.metric(label="Fino a 56 APE", value="55 €/cad", delta="-45% sul pacchetto",
 st.markdown("Per unità superiori a 200mq verrà comunicato preventivo specifico.")
 
 st.markdown("---")
-st.markdown("Se richiesto, fatturazione direttamente al cliente - prezzo fisso 150 euro iva inclusa!")
+st.subheader("💰 Se richiesto, fatturazione direttamente al cliente - prezzo fisso 150 euro iva inclusa!")
 

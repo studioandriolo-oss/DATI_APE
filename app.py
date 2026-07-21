@@ -308,10 +308,10 @@ spazio_bottoni = st.container()
 
 # Inseriamo il toggle, che apparirà VISIVAMENTE sotto lo spazio dei bottoni
 st.markdown("---")
-col_testo_toggle, col_bottone_toggle = st.columns([3,3])
+col_testo_toggle, col_bottone_toggle = st.columns([3,4])
 
 with col_testo_toggle:
-    st.subheader("FATTURARE DIRETTAMENTE AL CLIENTE")
+    st.subheader("FATTURARE DIRETTAMENTE AL CLIENTE?")
     
 with col_bottone_toggle:
     # Aggiungiamo un piccolo margine invisibile per allineare l'interruttore al testo grande

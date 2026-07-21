@@ -386,3 +386,28 @@ if inviato:
         except Exception as e:
             st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")
             st.info("Assicurati di aver inserito `mail_password` nei Secrets di Streamlit.")
+
+st.markdown("---")
+    
+    # ==========================================
+    # PIANO COMMERCIALE E SCONTISTICA
+    # ==========================================
+    st.header("💰 Piano Commerciale")
+    st.markdown("Premiamo i volumi di lavoro continui.")
+    
+    with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"):
+        st.markdown("""
+        | Scaglione (Volume Pratiche) | Prezzo Unitario | Totale Pacchetto |
+        | :--- | :---: | :---: |
+        | **Da 1 a 7 APE** | 100,00 € | 700,00 € |
+        | **Da 8 a 14 APE** | 80,00 € | 560,00 € |
+        | **Da 15 a 28 APE** | 65,00 € | 910,00 € |
+        | **Da 29 a 56 APE** | 55,00 € | 1.540,00 € |
+        """)
+        
+    # Un tocco visivo in più usando le metriche native di Streamlit
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric(label="Fino a 7 APE", value="100 €/cad")
+    c2.metric(label="Fino a 14 APE", value="80 €/cad", delta="-20% sul pacchetto", delta_color="normal")
+    c3.metric(label="Fino a 28 APE", value="65 €/cad", delta="-35% sul pacchetto", delta_color="normal")
+    c4.metric(label="Fino a 56 APE", value="55 €/cad", delta="-45% sul pacchetto", delta_color="normal")

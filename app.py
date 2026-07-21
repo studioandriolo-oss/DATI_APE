@@ -308,14 +308,14 @@ spazio_bottoni = st.container()
 
 # Inseriamo il toggle, che apparirà VISIVAMENTE sotto lo spazio dei bottoni
 st.markdown("---")
-col_testo_toggle, col_bottone_toggle = st.columns([4, 1])
+col_testo_toggle, col_bottone_toggle = st.columns([3, 1])
 
 with col_testo_toggle:
     st.subheader("FATTURARE DIRETTAMENTE AL CLIENTE")
     
 with col_bottone_toggle:
     # Aggiungiamo un piccolo margine invisibile per allineare l'interruttore al testo grande
-    st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
+    st.subheader("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
     
     # Creiamo il toggle nascondendo la sua etichetta standard (che ora è il subheader a sinistra)
     fatt_cliente = st.toggle("Attiva", label_visibility="collapsed")

@@ -301,6 +301,15 @@ with c2:
 with c3:
     file_foto = st.file_uploader("Carica Fotografie (Dall'esterno, Serramenti, Caldaia, Termostato, Radiatori)", accept_multiple_files=True)
 
+# ---------------------------------------------------------
+# PRENOTIAMO LO SPAZIO PER I BOTTONI
+# ---------------------------------------------------------
+spazio_bottoni = st.container()
+
+# Inseriamo il toggle, che apparirà VISIVAMENTE sotto lo spazio dei bottoni
+st.markdown("---")
+fatt_cliente = st.toggle("FATTURARE DIRETTAMENTE AL CLIENTE")
+
 # ==========================================
 # PREPARAZIONE DATI (Riepilogo) E PULSANTI
 # ==========================================
@@ -355,23 +364,27 @@ ALTRI IMPIANTI
 Fatturare direttamente al cliente: {txt_fattura}
 """
 
-# 2. Mostriamo i pulsanti in linea
-col_btn1, col_btn2, col_vuota = st.columns([2, 2, 6])
-
-with col_btn1:
-    # Generiamo il PDF in background
-    pdf_bytes = genera_pdf(riepilogo)
+# ---------------------------------------------------------
+# INSERIAMO I BOTTONI NELLO SPAZIO PRENOTATO IN ALTO
+# ---------------------------------------------------------
+with spazio_bottoni:
+    st.markdown("<br>", unsafe_allow_html=True)
+    col_btn1, col_btn2, col_vuota = st.columns([2, 2, 6])
     
-    # Download button (scarica il file automaticamente senza mostrare il testo a schermo)
-    st.download_button(
-        label="📄 Scarica PDF Riepilogo",
-        data=pdf_bytes,
-        file_name=f"APE_{cognome_prop}_{nome_agente}.pdf",
-        mime="application/pdf"
-    )
+    with col_btn1:
+        # Generiamo il PDF in background
+        pdf_bytes = genera_pdf(riepilogo)
+    
+        # Download button (scarica il file automaticamente senza mostrare il testo a schermo)
+        st.download_button(
+            label="📄 Scarica PDF Riepilogo",
+            data=pdf_bytes,
+            file_name=f"APE_{cognome_prop}_{nome_agente}.pdf",
+            mime="application/pdf"
+            )
 
-with col_btn2:
-    inviato = st.button("Invia al professionista", type="primary")
+    with col_btn2:
+        inviato = st.button("Invia al professionista", type="primary")
 
 # 3. Logica per l'invio mail
 if inviato:
@@ -386,9 +399,6 @@ if inviato:
         except Exception as e:
             st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")
             st.info("Assicurati di aver inserito `mail_password` nei Secrets di Streamlit.")
-
-#tasto fatturazione al cliente
-fatt_cliente = st.toggle("FATTURARE DIRETTAMENTE AL CLIENTE")
 
 st.markdown("---")
 

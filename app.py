@@ -393,7 +393,7 @@ st.markdown("---")
 # PIANO COMMERCIALE E SCONTISTICA
 # ==========================================
 st.header("💰 Piano Commerciale")
-st.markdown(-------------"Premiamo i volumi di lavoro continui")
+st.markdown("Premiamo i volumi di lavoro continui")
     
 with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"):
         st.markdown("""

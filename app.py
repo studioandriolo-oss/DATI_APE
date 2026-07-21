@@ -384,6 +384,9 @@ if inviato:
             st.error(f"Si è verificato un errore durante l'invio dell'email: {e}")
             st.info("Assicurati di aver inserito `mail_password` nei Secrets di Streamlit.")
 
+#tasto fatturazione al cliente
+fatt_cliente = st.toggle("FATTURARE DIRETTAMENTE AL CLIENTE")
+
 # ==========================================
 # PIANO COMMERCIALE E SCONTISTICA
 # ==========================================
@@ -411,5 +414,5 @@ c4.metric(label="Fino a 56 APE", value="55 €/cad", delta="-45% sul pacchetto",
 st.markdown("Per unità superiori a 200mq verrà comunicato preventivo specifico.")
 
 st.markdown("---")
-st.subheader("💰 Direttamente al client, se richiesto: fatturazione a prezzo fisso 150 euro iva inclusa!")
+st.subheader("💰 Direttamente al cliente, se richiesto: fatturazione a prezzo fisso 150 euro iva inclusa!")
 

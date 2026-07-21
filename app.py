@@ -370,9 +370,6 @@ with col_btn2:
     inviato = st.button("Invia al professionista", type="primary")
 
 st.markdown("---")
-st.subheader("Prezzo fisso 130 euro iva inclusa!")
-st.markdown("Per unità superiori a 200mq verrà comunicato preventivo specifico.")
-
 # 3. Logica per l'invio mail
 if inviato:
     with st.spinner("Compilazione email e caricamento allegati in corso..."):
@@ -392,12 +389,13 @@ st.markdown("---")
 # ==========================================
 # PIANO COMMERCIALE E SCONTISTICA
 # ==========================================
-st.header("💰 Piano Commerciale")
+st.header("💰 Piano Commerciale per unità fino a 200 mq")
+st.markdown("Riservato agli agenti - Iva inclusa - Fatturazione annuale")
 st.markdown("Premiamo i volumi di lavoro continui")
     
 with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"):
         st.markdown("""
-        | Scaglione (Volume Pratiche) | Prezzo Unitario | Totale Pacchetto |
+        | Scaglione | Prezzo Unitario | Totale Pacchetto |
         | :--- | :---: | :---: |
         | **Da 1 a 7 APE** | 100,00 € | 700,00 € |
         | **Da 8 a 14 APE** | 80,00 € | 1.260,00 € |
@@ -411,3 +409,9 @@ c1.metric(label="Fino a 7 APE", value="100 €/cad")
 c2.metric(label="Fino a 14 APE", value="80 €/cad", delta="-20% sul pacchetto", delta_color="normal")
 c3.metric(label="Fino a 28 APE", value="65 €/cad", delta="-35% sul pacchetto", delta_color="normal")
 c4.metric(label="Fino a 56 APE", value="55 €/cad", delta="-45% sul pacchetto", delta_color="normal")
+
+st.markdown("Per unità superiori a 200mq verrà comunicato preventivo specifico.")
+
+st.markdown("---")
+st.subheader("Se richiesto, fatturazione direttamente al cliente - prezzo fisso 150 euro iva inclusa!")
+

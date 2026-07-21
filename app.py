@@ -395,7 +395,7 @@ st.markdown("---")
 st.header("💰 Piano Commerciale")
 st.markdown("Premiamo i volumi di lavoro continui")
     
-    with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"):
+with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"):
         st.markdown("""
         | Scaglione (Volume Pratiche) | Prezzo Unitario | Totale Pacchetto |
         | :--- | :---: | :---: |

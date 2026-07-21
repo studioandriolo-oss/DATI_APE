@@ -411,5 +411,5 @@ c4.metric(label="Fino a 56 APE", value="55 €/cad", delta="-45% sul pacchetto",
 st.markdown("Per unità superiori a 200mq verrà comunicato preventivo specifico.")
 
 st.markdown("---")
-st.subheader("💰 Se richiesto, fatturazione direttamente al cliente - prezzo fisso 150 euro iva inclusa!")
+st.subheader("💰 Direttamente al client, se richiesto: fatturazione a prezzo fisso 150 euro iva inclusa!")
 

@@ -310,7 +310,8 @@ st.markdown("", unsafe_allow_html=True)
 txt_foto = f"- Fotovoltaico: Potenza {fotovoltaico} - Esposizione: {esposizione}" if mostra_fotovoltaico else "- Fotovoltaico: Non presente"
 txt_stufa = f"- Stufa: {stufa_tipo} - {stufa_marca} - Anno {stufa_anno} - Sistema: {', '.join(stufa_sistema)}" if mostra_stufa else "- Stufa: Non presente"
 txt_pompa_di_calore = f"- PDC: COP {PDC_riscaldamento} - EER {PDC_raffrescamento} - Elementi Radianti: {PDC_elementi_radianti}" if mostra_PDC else "- PDC: Non presente"
-    
+txt_fattura = "SI" if fatt_cliente else "NO"
+
 # Ho rimosso gli '###' per far uscire il PDF più pulito e formattato come un vero modulo
 riepilogo = f"""
 1. DATI GENERALI E PROPRIETARIO
@@ -349,6 +350,9 @@ ALTRI IMPIANTI
 
 5. NOTE
 {note}
+
+6.FATTURA CLIENTE
+Fatturare direttamente al cliente: {txt_fattura}
 """
 
 # 2. Mostriamo i pulsanti in linea
@@ -369,7 +373,6 @@ with col_btn1:
 with col_btn2:
     inviato = st.button("Invia al professionista", type="primary")
 
-st.markdown("---")
 # 3. Logica per l'invio mail
 if inviato:
     with st.spinner("Compilazione email e caricamento allegati in corso..."):
@@ -386,6 +389,8 @@ if inviato:
 
 #tasto fatturazione al cliente
 fatt_cliente = st.toggle("FATTURARE DIRETTAMENTE AL CLIENTE")
+
+st.markdown("---")
 
 # ==========================================
 # PIANO COMMERCIALE E SCONTISTICA

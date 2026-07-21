@@ -393,16 +393,16 @@ st.markdown("---")
 # PIANO COMMERCIALE E SCONTISTICA
 # ==========================================
 st.header("💰 Piano Commerciale")
-st.markdown("Premiamo i volumi di lavoro continui")
+st.markdown("        Premiamo i volumi di lavoro continui")
     
 with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"):
         st.markdown("""
         | Scaglione (Volume Pratiche) | Prezzo Unitario | Totale Pacchetto |
         | :--- | :---: | :---: |
         | **Da 1 a 7 APE** | 100,00 € | 700,00 € |
-        | **Da 8 a 14 APE** | 80,00 € | 560,00 € |
-        | **Da 15 a 28 APE** | 65,00 € | 910,00 € |
-        | **Da 29 a 56 APE** | 55,00 € | 1.540,00 € |
+        | **Da 8 a 14 APE** | 80,00 € | 1.260,00 € |
+        | **Da 15 a 28 APE** | 65,00 € | 2.170,00 € |
+        | **Da 29 a 56 APE** | 55,00 € | 3.710,00 € |
         """)
         
 # Un tocco visivo in più usando le metriche native di Streamlit

@@ -122,19 +122,19 @@ with c1:
     destinazione_uso = st.text_input("Destinazione Uso")
 
 with c2:
-    nome_prop = st.text_input("Nome Proprietario")
-    cognome_prop = st.text_input("Cognome Proprietario")
-    cf_prop = st.text_input("Codice Fiscale")
+    nome_prop = st.text_input("Nome Proprietario*")
+    cognome_prop = st.text_input("Cognome Proprietario*")
+    cf_prop = st.text_input("Codice Fiscale*")
     
 with c3:
     data_nascita = st.text_input("Data di nascita (gg/mm/aaaa)")
     luogo_nascita = st.text_input("Luogo di nascita")
         
 with c4:
-    residenza_prop = st.text_input("Residenza (Comune)")
+    residenza_prop = st.text_input("Residenza (Comune*)")
     cap_prop = st.text_input("CAP")
-    via_prop = st.text_input("Via/Piazza (Proprietario)")
-    num_prop = st.text_input("Civico (Proprietario)")
+    via_prop = st.text_input("Via/Piazza* (Proprietario)")
+    num_prop = st.text_input("Civico* (Proprietario)")
 
 st.markdown("---")
 
@@ -145,31 +145,31 @@ st.header("2. Immobile")
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    comune_imm = st.text_input("Comune Immobile")
-    via_imm = st.text_input("Via/Piazza Immobile")
-    num_imm = st.text_input("Civico Immobile")
-    valore_imm = st.text_input("Valore (k€) - solo a fini statistici")
+    comune_imm = st.text_input("Comune Immobile*")
+    via_imm = st.text_input("Via/Piazza Immobile*")
+    num_imm = st.text_input("Civico Immobile*")
+    valore_imm = st.text_input("Valore (k€)")
 
 with c2:
-    foglio = st.text_input("Foglio")
-    mappale = st.text_input("Mappale (mn)")
-    sub = st.text_input("Sub")
+    foglio = st.text_input("Foglio*")
+    mappale = st.text_input("Mappale*")
+    sub = st.text_input("Sub*")
     
 with c3:
-    anno_costr = st.text_input("Anno Costruzione")
+    anno_costr = st.text_input("Anno Costruzione*")
     anno_imp = st.text_input("Anno Impianti")
     
 with c4:
-    n_unita = st.text_input("N. Unità edificio")
-    piano_ingr = st.text_input("Piano di ingresso")
-    n_piani = st.text_input("N. Piani totali")
+    n_unita = st.text_input("N. Unità edificio*")
+    piano_ingr = st.text_input("Piano di ingresso*")
+    n_piani = st.text_input("N. Piani totali*")
 
 st.subheader("Destinazione d'uso dei confinanti")
 c1, c2, c3, c4 = st.columns(4)
 with c1:
-    conf_sopra = st.selectbox("Sopra", ["Abitazione", "Sottotetto", "Cielo", "Altro", "Non specificato"])
+    conf_sopra = st.selectbox("Sopra", ["Abitazione", "Altro locale non abitativo" "Sottotetto", "Cielo", "Altro"])
 with c2:
-    conf_sotto = st.selectbox("Sotto", ["Abitazione", "Garage", "Terreno", "Altro", "Non specificato"])
+    conf_sotto = st.selectbox("Sotto", ["Abitazione", "Altro locale non abitativo" "Garage", "Altro"])
 
 st.markdown("---")
 
@@ -208,9 +208,9 @@ st.header("4. Impianti")
 st.subheader("Registrazione Impianto")
 cc1, cc2, cc3, cc4 = st.columns(4)
 with cc1:
-    codice_circe = st.text_input("Codice CIRCE")
+    codice_circe = st.text_input("Codice CIRCE*")
 with cc2:
-    chiave_circe = st.text_input("Chiave")
+    chiave_circe = st.text_input("Chiave*")
 with cc3:
     manutentore = st.text_input("Manutentore")
 with cc4:
@@ -297,7 +297,7 @@ with c1:
     file_planimetria = st.file_uploader("Carica Planimetria Catastale (PDF/Img)")
 with c2:
     file_doc_identita = st.file_uploader("Carica Documento Identità")
-    file_libretti = st.file_uploader("Carica Libretti Impianto / Accesso Atti")
+    file_libretti = st.file_uploader("Carica Libretti Impianto")
 with c3:
     file_foto = st.file_uploader("Carica Fotografie (Dall'esterno, Serramenti, Caldaia, Termostato, Radiatori)", accept_multiple_files=True)
 

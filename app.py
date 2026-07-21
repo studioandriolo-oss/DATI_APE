@@ -407,7 +407,7 @@ with st.info("📉 **Scontistica applicata per scaglioni di pratiche inviate:**"
         
 # Un tocco visivo in più usando le metriche native di Streamlit
 c1, c2, c3, c4 = st.columns(4)
-    c1.metric(label="Fino a 7 APE", value="100 €/cad")
-    c2.metric(label="Fino a 14 APE", value="80 €/cad", delta="-20% sul pacchetto", delta_color="normal")
-    c3.metric(label="Fino a 28 APE", value="65 €/cad", delta="-35% sul pacchetto", delta_color="normal")
-    c4.metric(label="Fino a 56 APE", value="55 €/cad", delta="-45% sul pacchetto", delta_color="normal")
+c1.metric(label="Fino a 7 APE", value="100 €/cad")
+c2.metric(label="Fino a 14 APE", value="80 €/cad", delta="-20% sul pacchetto", delta_color="normal")
+c3.metric(label="Fino a 28 APE", value="65 €/cad", delta="-35% sul pacchetto", delta_color="normal")
+c4.metric(label="Fino a 56 APE", value="55 €/cad", delta="-45% sul pacchetto", delta_color="normal")

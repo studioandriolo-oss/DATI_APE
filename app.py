@@ -21,7 +21,7 @@ def genera_pdf(testo):
     
     pdf.multi_cell(0, 6, text=testo_pulito)
     
-    # LA FIX È QUI: convertiamo esplicitamente l'output in 'bytes' per Streamlit
+    #convertiamo esplicitamente l'output in 'bytes' per Streamlit
     return bytes(pdf.output())
 
 # ==========================================
@@ -308,7 +308,17 @@ spazio_bottoni = st.container()
 
 # Inseriamo il toggle, che apparirà VISIVAMENTE sotto lo spazio dei bottoni
 st.markdown("---")
-fatt_cliente = st.toggle("FATTURARE DIRETTAMENTE AL CLIENTE")
+col_testo_toggle, col_bottone_toggle = st.columns([4, 1])
+
+with col_testo_toggle:
+    st.subheader("FATTURARE DIRETTAMENTE AL CLIENTE")
+    
+with col_bottone_toggle:
+    # Aggiungiamo un piccolo margine invisibile per allineare l'interruttore al testo grande
+    st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
+    
+    # Creiamo il toggle nascondendo la sua etichetta standard (che ora è il subheader a sinistra)
+    fatt_cliente = st.toggle("Attiva", label_visibility="collapsed")
 
 # ==========================================
 # PREPARAZIONE DATI (Riepilogo) E PULSANTI

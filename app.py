@@ -167,9 +167,9 @@ with c4:
 st.subheader("Destinazione d'uso dei confinanti")
 c1, c2, c3, c4 = st.columns(4)
 with c1:
-    conf_sopra = st.selectbox("Sopra", ["Abitazione", "Altro locale non abitativo" "Sottotetto", "Cielo", "Altro"])
+    conf_sopra = st.selectbox("Sopra", ["Abitazione", "Altro locale non abitativo", "Sottotetto", "Cielo", "Altro"])
 with c2:
-    conf_sotto = st.selectbox("Sotto", ["Abitazione", "Altro locale non abitativo" "Garage", "Altro"])
+    conf_sotto = st.selectbox("Sotto", ["Abitazione", "Altro locale non abitativo", "Garage", "Altro"])
 
 st.markdown("---")
 
